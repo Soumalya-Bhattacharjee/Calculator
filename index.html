@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Calculator</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous" />
+</head>
+
+<body>
+  <div id="calculator">
+    <span>Calculator</span>
+    <div id="main-display">
+      <div id="display"></div>
+      <div id="history"></div>
+    </div>
+     <button onclick="backspace()" style="background-color:rgb(35, 83, 61);color:white;font-weight:bold; grid-column: span 2;"><i class="fa-solid fa-delete-left" style="color: #ffffff;"></i></button>
+    <button onclick="clearDisplay()" style="background-color:rgb(35, 83, 61);color:white;font-weight:bold;">C</button>
+    <button onclick="appendToDisplay('/')">/</button>
+    <button onclick="appendToDisplay('7')">7</button>
+     <button onclick="appendToDisplay('8')">8</button>
+    <button onclick="appendToDisplay('9')">9</button>
+     <button onclick="appendToDisplay('*')">×</button>
+    <button onclick="appendToDisplay('4')">4</button>
+    <button onclick="appendToDisplay('5')">5</button> 
+    <button onclick="appendToDisplay('6')">6</button>
+     <button onclick="appendToDisplay('-')">-</button>
+    <button onclick="appendToDisplay('1')">1</button>
+    <button onclick="appendToDisplay('2')">2</button>
+    <button onclick="appendToDisplay('3')">3</button>
+    <button onclick="appendToDisplay('+')">+</button>
+    <button onclick="appendToDisplay('0')" style="grid-column: span 2;">0</button>
+    <button onclick="calculate()"style="grid-column: span 2;">=</button>
+  </div>
+
+  <script>
+    let history = document.getElementById('history');
+    let display = document.getElementById('display');
+    let expression = '';   // full input expression
+    let current = '';      // what user is typing now
+
+    function appendToDisplay(value) {
+      if (value === '+' || value === '-' || value === '/' || value === '*') {
+        // Save current number and operator
+        expression += current + value;
+        current = '';
+        display.innerText = '';  // clear screen after + or -
+      } else {
+        current += value;
+        display.innerText = current;
+      }
+      history.innerText = expression + current;
+    }
+    function backspace() {
+      if (current.length > 0) {
+        current = current.slice(0, -1);
+        display.innerText = current;
+        history.innerText = current;
+      }
+      else if (expression.length > 0) {
+        expression = expression.slice(0, -1);
+        history.innerText = expression;
+      }
+    }
+    function clearDisplay() {
+      expression = '';
+      current = '';
+      display.innerText = '';
+      history.innerText = '';
+    }
+
+    function calculate() {
+      try {
+        expression += current;  // append last number
+        let result = eval(expression);
+        display.innerText = result;
+        history.innerText = result;
+        expression = '';        // reset expression
+        current = result.toString(); // keep result for next calc
+      } catch (error) {
+        display.innerText = 'Error';
+        history.innerText = '';
+        expression = '';
+        current = '';
+      }
+    }
+  </script>
+
+
+</body>
+
+</html>
