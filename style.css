@@ -1,59 +1,110 @@
+/* ===== Global Body ===== */
 body {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: rgb(14, 29, 109);
-  border: 5px rgb(0, 0, 0) solid;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #ececec;
 }
 
+/* ===== Calculator Container ===== */
 #calculator {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  max-width: 700px;
+  gap: 12px;
+  max-width: 400px;
   margin: auto;
-  border: 5px solid black;
-  padding: 10px;
+  padding: 20px;
   border-radius: 15px;
-}
-#main-display{
-grid-column: span 4;
-  height: 50px;
-  text-align: right;
-  padding: 10px;
-  border: 1px solid black;
-  background-color: beige;
-}
-#display {
-   font-size: 28px;
-  font-weight: bold;
-  min-height: 35px;
-  
+  background: #121212;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
 }
 
-button {
-  padding: 10px;
-  font-size: 26px;
-  border: 5px solid black;
-  border-radius: 5px;
-  cursor: pointer;
-  color: rgb(255, 255, 255);
-  background-color: rgb(0, 0, 0);
+/* ===== Display Area ===== */
+#main-display {
+  grid-column: span 4;
+  background: #a0a0a0;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: right;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
 }
-button:hover{
-  color: blue;
-  background-color: bisque;
-}
-span{
-  font-size: 15px;
-  color: beige;
-  text-decoration: solid;
-}
-#history{
-    font-size: 14px;
-  color: gray;
+
+#history {
+  font-size: 14px;
+  color: #9e9e9e;
   min-height: 20px;
+}
+
+#display {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffffff;
+  min-height: 35px;
+}
+
+/* ===== Buttons ===== */
+button {
+  position: relative;
+  overflow: hidden; /* for ripple effect */
+  padding: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #2d2d2d;
+  color: #ffffff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+/* Hover Glow */
+button:hover {
+  background: #ff9800;
+  box-shadow: 0 0 10px #ff9800;
+}
+
+/* Ripple Effect */
+button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: width 0.4s ease, height 0.4s ease, opacity 0.6s ease;
+}
+
+button:active::after {
+  width: 300%;
+  height: 300%;
+  opacity: 0;
+}
+
+/* Press Down Effect */
+button:active {
+  transform: scale(0.95);
+}
+
+/* ===== Special Buttons ===== */
+button.equal {
+  grid-column: span 2;
+  background: #ff9800;
+  color: #fff;
+}
+button.equal:hover {
+  background: #e68900;
+}
+
+button.clear {
+  background: #e53935;
+}
+button.clear:hover {
+  background: #c62828;
 }
